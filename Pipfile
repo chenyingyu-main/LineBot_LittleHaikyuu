@@ -1,0 +1,30 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+certifi = "*"
+chardet = "*"
+click = "*"
+future = "*"
+idna = "*"
+itsdangerous = "*"
+jinja2 = "*"
+line-bot-sdk = "*"
+markupsafe = "*"
+python-dotenv = "*"
+requests = "*"
+six = "*"
+transitions = "*"
+urllib3 = "*"
+werkzeug = "*"
+graphviz = "*"
+beautifulsoup4 = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"
+python_full_version = "3.10.2"
