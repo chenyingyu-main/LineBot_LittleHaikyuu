@@ -25,7 +25,7 @@ machine = TocMachine(
         },
         # menu to my three main functions
         {
-            "trigger": "advance", "source": "menu", "dest": "about_volley", "conditions": "is_going_to_training_and_cooldown",
+            "trigger": "advance", "source": "menu", "dest": "about_volley", "conditions": "is_going_to_about_volley",
         },
         {
             "trigger": "advance", "source": "menu", "dest": "training_and_cooldown", "conditions": "is_going_to_training_and_cooldown",
