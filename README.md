@@ -1,10 +1,8 @@
-# TOC Project 2020
+# Little Haikyuu 小排球
 
-Template Code for TOC Project 2020
+Final Project for TOC Project 2022
 
 A Line bot based on a finite state machine
-
-More details in the [Slides](https://hackmd.io/@TTW/ToC-2019-Project#) and [FAQ](https://hackmd.io/s/B1Xw7E8kN)
 
 ## Setup
 
