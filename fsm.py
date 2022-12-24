@@ -6,9 +6,11 @@ from dotenv import load_dotenv
 from transitions.extensions import GraphMachine
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
-from linebot.models import MessageEvent, TextMessage, TextSendMessage, FlexSendMessage, QuickReply, QuickReplyButton, MessageAction
+from linebot.models import *
 from utils import send_text_message
-import message_template
+import message_template.message_template as message_template
+import message_template.player_intro as player_intro
+import web_scraper.scrape_wiki_soup as soup
 
 channel_secret = os.getenv("LINE_CHANNEL_SECRET", None)
 channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
@@ -54,6 +56,42 @@ class TocMachine(GraphMachine):
         text = event.message.text
         return text.lower() == "關於排球"
 
+    def is_going_to_news_and_media(self, event):
+        text = event.message.text
+        return text.lower() == "時事收集與媒體"
+
+    def is_going_to_position(self, event):
+        text = event.message.text
+        return text.lower() == "球員站位與介紹"
+
+    def is_going_to_ws(self, event):
+        text = event.message.text
+        return text == "Wing Spiker"
+
+    def is_going_to_mb(self, event):
+        text = event.message.text
+        return text == "Middle Blocker"
+    
+    def is_going_to_op(self, event):
+        text = event.message.text
+        return text == "Opposite"
+
+    def is_going_to_s(self, event):
+        text = event.message.text
+        return text == "Setter"
+
+    def is_going_to_l(self, event):
+        text = event.message.text
+        return text == "Libero"
+    
+    def is_going_to_rules(self, event):
+        text = event.message.text
+        return text.lower() == "比賽規則"
+
+    def is_going_to_rotation(self, event):
+        text = event.message.text
+        return text.lower() == "輪轉規則"
+
     # on state
     def on_enter_menu(self, event):
         print("I'm now in menu")
@@ -77,6 +115,7 @@ class TocMachine(GraphMachine):
         print("I'm entering 體能(physical_training)")
 
         reply_token = event.reply_token
+       
         quick_message = TextSendMessage(text="請於聊天室回覆『TABATA』(塔巴塔) 或 『排球體能菜單』，或使用以下快捷按鈕 \U0001F609", 
                                         quick_reply=QuickReply(items=[
                                             QuickReplyButton(action=MessageAction(label="TABATA", text="TABATA")),
@@ -102,9 +141,14 @@ class TocMachine(GraphMachine):
 
         reply_token = event.reply_token
         message = message_template.tabata
+        audio_message = AudioSendMessage(
+            original_content_url="https://od.lk/s/NzlfMzEwNDE4MjVf/TABATA%20%28FULL%20BODY%E2%80%94LEVEL%20BEGINNER%29.mp3",
+            duration=259000
+        )
         message_to_reply = FlexSendMessage("塔巴塔", message)
+        mes = [message_to_reply, audio_message]
         line_bot_api = LineBotApi(channel_access_token)
-        line_bot_api.reply_message(reply_token, message_to_reply)
+        line_bot_api.reply_message(reply_token, mes)
 
     def on_enter_training_list(self, event):
         print("I'm entering 排球體能菜單 *3 list ")
@@ -134,8 +178,163 @@ class TocMachine(GraphMachine):
         line_bot_api.reply_message(reply_token, message_to_reply)
 
     def on_enter_about_volley(self, event):
-        print("I'm entering 關於排球  about volley")
+        print("I'm entering 關於排球  about volley") 
+        reply_token = event.reply_token
+        message = message_template.about_volley
+        message_to_reply = FlexSendMessage("時事收集與媒體", message)
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_to_reply) 
 
+    def on_enter_news_and_media(self, event):
+        print("I'm entering news_and_media 時事收集與媒體")  
+        reply_token = event.reply_token
+        message = message_template.news_and_media
+        message_to_reply = FlexSendMessage("時事收集與媒體", message)
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_to_reply)
+        # message of "排球比賽" and "排球推薦帳號"
+
+    def on_enter_position(self, event):
+        print("I'm entering position 站位")
+        reply_token = event.reply_token
+        imagemap = ImagemapSendMessage(
+            base_url='https://i.imgur.com/wa9rgBv.jpg',
+            alt_text='this is a image map of 小排球佔位',
+            base_size=BaseSize(width=1040, height=1040),
+            actions=[
+                MessageImagemapAction(
+                    text="Opposite",
+                    area=ImagemapArea(x=160, y=185, height=220, width=220)
+                ),
+                MessageImagemapAction(
+                    text="Middle Blocker",
+                    area=ImagemapArea(x=405, y=185, height=220, width=220)
+                ),
+                MessageImagemapAction(
+                    text="Wing Spiker",
+                    area=ImagemapArea(x=655, y=185, height=220, width=220)
+                ),
+                MessageImagemapAction(
+                    text="Wing Spiker",
+                    area=ImagemapArea(x=160, y=495, height=220, width=220)
+                ),
+                MessageImagemapAction(
+                    text="Middle Blocker",
+                    area=ImagemapArea(x=405, y=495, height=220, width=220)
+                ),
+                MessageImagemapAction(
+                    text="Setter",
+                    area=ImagemapArea(x=655, y=495, height=220, width=220)
+                ),
+                MessageImagemapAction(
+                    text="Libero",
+                    area=ImagemapArea(x=655, y=795, height=220, width=220)
+                )
+            ]
+        )
+        text_message = TextSendMessage(text="\U0000203C請點選下方『圖片的位置』來了解該位置球員～\n\n例如：\n我想了解OP位，請點選左上方『澤村』的頭像方格")
+        message_send = [text_message, imagemap]
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_send)
         
+    def on_enter_ws(self, event):
+        print("I'm entering Wing spiker")  
+        reply_token = event.reply_token
+        message = player_intro.WS
+        message_to_reply = FlexSendMessage("WS", message)
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_to_reply)
 
+    def on_enter_mb(self, event):
+        print("I'm entering MIddle Blocker")  
+        reply_token = event.reply_token
+        message = player_intro.MB
+        message_to_reply = FlexSendMessage("MB", message)
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_to_reply)
 
+    def on_enter_op(self, event):
+        print("I'm entering OP")  
+        reply_token = event.reply_token
+        message = player_intro.OP
+        message_to_reply = FlexSendMessage("OP", message)
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_to_reply)
+
+    def on_enter_s(self, event):
+        print("I'm entering setter")  
+        reply_token = event.reply_token
+        message = player_intro.S
+        message_to_reply = FlexSendMessage("S", message)
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_to_reply)
+
+    def on_enter_l(self, event):
+        print("I'm entering libero")  
+        reply_token = event.reply_token
+        message = player_intro.L
+        message_to_reply = FlexSendMessage("L", message)
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_to_reply)
+    
+    def on_enter_rules(self, event):
+        # website scraping using beautifulsoup
+        print("i am entering rules 比賽規則")
+        reply_token = event.reply_token
+
+        ## the rules[0] is th title
+        foul_rules = soup.get_foul_rule()
+        message1 = ''
+        for i in range(len(foul_rules)):
+            if i == 0:
+                message1 += ('\U0001F3D0 ' + foul_rules[i] + ' \U0001F3D0\n\n')
+            else:
+                message1 += ('\U0001F31F ' + foul_rules[i] + '\n\n')
+        
+        change_rules = soup.change_and_timeout()
+        message2 = ''
+        for i in range(len(change_rules)):
+            if i == 0:
+                message2 += ('\U0001F3D0 ' + change_rules[i] + ' \U0001F3D0\n\n')
+            else:
+                message2 += ('\U0001F91D ' + change_rules[i] + '\n')
+
+        score_rules = soup.score()
+        message3 = ''
+        for i in range(len(score_rules)):
+            if i == 0:
+                message3 += ('\U0001F3D0 ' + score_rules[i] + ' \U0001F3D0\n\n')
+            else:
+                message3 += ('\U0001F609 ' + score_rules[i] + '\n')
+
+        quick_message = TextSendMessage(text="以上規則爬取自 維基百科，希望對使用者有幫助 \U0001F440\n\n 現在可以輸入『主選單』返回主選單 \n\n\U00002705 也可以直接使用快捷按鈕", 
+                                        quick_reply=QuickReply(items=[
+                                            QuickReplyButton(action=MessageAction(label="主選單", text="主選單"))
+                                        ]))
+
+        sendmessage = [TextSendMessage(text=message1), TextSendMessage(text=message2), TextSendMessage(text=message3), quick_message]
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, sendmessage)
+
+    def on_enter_rotation(self, event):
+        # sad, i cannot scrape this website :(
+        # i think i can only copy and paste
+        # url = 'http://area.hcjh.tn.edu.tw/health/排球教學網站-資訊教學媒體競賽/1.htm'
+        print("i am entering rotation 輪轉規則")
+        reply_token = event.reply_token
+        image_message = ImageSendMessage(
+            original_content_url='https://images.squarespace-cdn.com/content/v1/5cd106404d871189e4392d5e/1598333863972-D05PLIFYVXIVRR2BP91O/1.png',
+            preview_image_url='https://images.squarespace-cdn.com/content/v1/5cd106404d871189e4392d5e/1598333863972-D05PLIFYVXIVRR2BP91O/1.png'
+        )
+        message = '\U0001F3D0 位置 \U0001F3D0 \n\n' + '發球員的擊球瞬間，雙方球員必須在各自的場區內，按輪轉順序站位（發球員除外）。\n\n'
+        message += '\U0001F914 場上球員的位置代號如下：\n靠近球網的三名是前排球員，各站在4號位（前排左）、3號位（前排中）和2號位（前排右）。\n另外三位是後排球員，各站在5號位（後排左）、6號位（後排中）和1號位（後排右）。\n\n'
+        message += '\U0001F914 球員之間的位置關係為：\n每一後排球員的位置，必須比其同列的前排球員距離球網更遠。\n\n'
+        message += '\n\U0001F3D0 輪轉 \U0001F3D0 \n\n整局比賽的輪轉順序、發球順序和球員位置，都依球隊的先發陣容決定和管制。\n發球隊獲得發球權時，該隊球員必須按順時鐘方向輪轉一個位置，2號位球員轉到1號位發球，1號位球員轉到6號位，餘此類推。\n'
+
+        quick_message = TextSendMessage(text="以上規則擷取自 排球教學網站-資訊教學媒體競賽，希望對使用者有幫助 \U0001F440\n\n 現在可以輸入『主選單』返回主選單 \n\n\U00002705 也可以直接使用快捷按鈕", 
+                                        quick_reply=QuickReply(items=[
+                                            QuickReplyButton(action=MessageAction(label="主選單", text="主選單"))
+                                        ]))
+        messagesend = [image_message, TextSendMessage(message), quick_message]
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, messagesend)

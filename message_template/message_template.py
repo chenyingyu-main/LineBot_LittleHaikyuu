@@ -245,8 +245,8 @@ main_menu = {
                 "cornerRadius": "4px",
                 "action": {
                   "type": "message",
-                  "label": "時事與媒體",
-                  "text": "時事與媒體"
+                  "label": "時事收集與媒體",
+                  "text": "時事收集與媒體"
                 }
               }
             ],
@@ -398,7 +398,7 @@ tabata = {
         "height": "sm",
         "action": {
           "type": "uri",
-          "label": "MUSIC",
+          "label": "VIDEO",
           "uri": "https://www.youtube.com/watch?v=UVYn8FmMbPc"
         },
         "color": "#DD881E"
@@ -868,7 +868,7 @@ do_cool_down = {
     "contents": [
       {
         "type": "text",
-        "text": "Brown Cafe",
+        "text": "收操排球小教室",
         "weight": "bold",
         "size": "xl"
       },
@@ -908,5 +908,207 @@ do_cool_down = {
       }
     ],
     "flex": 0
+  }
+}
+
+news_and_media = {
+  "type": "bubble",
+  "header": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "horizontal",
+        "contents": [
+          {
+            "type": "image",
+            "url": "https://i.pinimg.com/474x/62/53/79/625379aa835c3d466a06e90b704c60ce.jpg",
+            "size": "full",
+            "aspectMode": "cover",
+            "aspectRatio": "150:196",
+            "gravity": "center",
+            "flex": 1
+          },
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "image",
+                "url": "https://i.pinimg.com/564x/2b/06/5d/2b065dbf7a39e08d72d2084b1fe8d29a.jpg",
+                "size": "full",
+                "aspectMode": "cover",
+                "aspectRatio": "150:98",
+                "gravity": "center"
+              },
+              {
+                "type": "image",
+                "url": "https://pbs.twimg.com/media/FaB7gsAWAAEMIOD?format=jpg&name=medium",
+                "size": "full",
+                "aspectMode": "cover",
+                "aspectRatio": "150:98",
+                "gravity": "center"
+              }
+            ],
+            "flex": 1
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "text",
+                "text": "NEWS",
+                "size": "xs",
+                "color": "#ffffff",
+                "align": "center",
+                "gravity": "center"
+              }
+            ],
+            "backgroundColor": "#EC3D44",
+            "paddingAll": "2px",
+            "paddingStart": "4px",
+            "paddingEnd": "4px",
+            "flex": 0,
+            "position": "absolute",
+            "offsetStart": "18px",
+            "offsetTop": "18px",
+            "cornerRadius": "100px",
+            "width": "48px",
+            "height": "25px"
+          }
+        ]
+      }
+    ],
+    "paddingAll": "0px"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "vertical",
+            "contents": [
+              {
+                "type": "text",
+                "contents": [],
+                "size": "xl",
+                "wrap": True,
+                "text": "時事收集與媒體",
+                "color": "#ffffff",
+                "weight": "bold"
+              },
+              {
+                "type": "text",
+                "text": "排球比賽最新資訊 ＆ 相關社群帳號",
+                "color": "#ffffff"
+              }
+            ],
+            "spacing": "sm"
+          }
+        ]
+      }
+    ],
+    "paddingAll": "20px",
+    "backgroundColor": "#2D336A"
+  },
+  "footer": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "國內外排球比賽",
+          "text": "排球比賽"
+        },
+        "style": "primary",
+        "offsetBottom": "3px",
+        "color": "#DD881E"
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "推薦媒體帳號",
+          "text": "排球推薦帳號"
+        },
+        "style": "primary",
+        "offsetTop": "3px",
+        "color": "#DD881E"
+      }
+    ],
+    "backgroundColor": "#2D336A"
+  }
+}
+
+about_volley = {
+  "type": "bubble",
+  "header": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "關於排球⋯⋯\U0001F914",
+        "size": "xl",
+        "weight": "bold",
+        "color": "#ffffff",
+        "offsetTop": "5px"
+      }
+    ],
+    "backgroundColor": "#124E5B"
+  },
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "球員站位與介紹",
+          "text": "球員站位與介紹"
+        },
+        "color": "#ffffff55",
+        "style": "primary"
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "比賽規則",
+          "text": "比賽規則"
+        },
+        "color": "#ffffff55",
+        "style": "primary",
+        "offsetTop": "5px"
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "輪轉規則",
+          "text": "輪轉規則"
+        },
+        "color": "#ffffff55",
+        "style": "primary",
+        "offsetTop": "10px"
+      }
+    ],
+    "backgroundColor": "#124E5B",
+    "spacing": "none"
+  },
+  "styles": {
+    "hero": {
+      "separator": True
+    }
   }
 }

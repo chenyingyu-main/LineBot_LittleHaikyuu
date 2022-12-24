@@ -15,8 +15,9 @@ load_dotenv()
 
 machine = TocMachine(
     states=["user", "menu",
-        "about_volley",
-        "training_and_cooldown", "physical_training", "cool_down", "tabata", "training_list", "intro_cool", "start_cool"
+        "about_volley", "position", "ws", "mb", "op", "s", "l", "rules", "rotation",
+        "training_and_cooldown", "physical_training", "cool_down", "tabata", "training_list", "intro_cool", "start_cool",
+        "news_and_media"
     ],
     transitions=[
         # from user to menu
@@ -30,7 +31,70 @@ machine = TocMachine(
         {
             "trigger": "advance", "source": "menu", "dest": "training_and_cooldown", "conditions": "is_going_to_training_and_cooldown",
         },
+        {
+            "trigger": "advance", "source": "menu", "dest": "news_and_media", "conditions": "is_going_to_news_and_media",
+        },
         # (關於排球) about volley
+        {
+            "trigger": "advance", "source": "about_volley", "dest": "position", "conditions": "is_going_to_position",
+        },
+        {
+            "trigger": "advance", "source": "position", "dest": "ws", "conditions": "is_going_to_ws",
+        },
+        {
+            "trigger": "advance", "source": "ws", "dest": "menu", "conditions": "is_going_to_menu",
+        },
+        {
+            "trigger": "advance", "source": "ws", "dest": "position", "conditions": "is_going_to_position",
+        },
+        {
+            "trigger": "advance", "source": "position", "dest": "mb", "conditions": "is_going_to_mb",
+        },
+        {
+            "trigger": "advance", "source": "mb", "dest": "menu", "conditions": "is_going_to_menu",
+        },
+        {
+            "trigger": "advance", "source": "mb", "dest": "position", "conditions": "is_going_to_position",
+        },
+        {
+            "trigger": "advance", "source": "position", "dest": "op", "conditions": "is_going_to_op",
+        },
+        {
+            "trigger": "advance", "source": "op", "dest": "menu", "conditions": "is_going_to_menu",
+        },
+        {
+            "trigger": "advance", "source": "op", "dest": "position", "conditions": "is_going_to_position",
+        },
+        {
+            "trigger": "advance", "source": "position", "dest": "s", "conditions": "is_going_to_s",
+        },
+        {
+            "trigger": "advance", "source": "s", "dest": "menu", "conditions": "is_going_to_menu",
+        },
+        {
+            "trigger": "advance", "source": "s", "dest": "position", "conditions": "is_going_to_position",
+        },
+        {
+            "trigger": "advance", "source": "position", "dest": "l", "conditions": "is_going_to_l",
+        },
+        {
+            "trigger": "advance", "source": "l", "dest": "menu", "conditions": "is_going_to_menu",
+        },
+        {
+            "trigger": "advance", "source": "l", "dest": "position", "conditions": "is_going_to_position",
+        },
+        {
+            "trigger": "advance", "source": "about_volley", "dest": "rules", "conditions": "is_going_to_rules",
+        },
+        {
+            "trigger": "advance", "source": "rules", "dest": "menu", "conditions": "is_going_to_menu",
+        },
+        {
+            "trigger": "advance", "source": "about_volley", "dest": "rotation", "conditions": "is_going_to_rotation",
+        },
+        {
+            "trigger": "advance", "source": "rotation", "dest": "menu", "conditions": "is_going_to_menu",
+        },
         # (體能與收操) training and cooldown
         {
             "trigger": "advance", "source": "training_and_cooldown", "dest": "physical_training", "conditions": "is_going_to_physical_training",
