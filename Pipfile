@@ -20,10 +20,11 @@ six = "*"
 transitions = "*"
 urllib3 = "*"
 werkzeug = "*"
-graphviz = "*"
 beautifulsoup4 = "*"
 lxml = "*"
 selenium = "*"
+graphviz = "*"
+pygraphviz = "*"
 
 [dev-packages]
 
