@@ -39,7 +39,6 @@ python3 app.py
 >
 >Selenium 爬取 YouTube 個頻道的最新影片
 >
->媒體加分：Tabata 的音樂部分（音樂有點長，可能會 loading 一段時間）
 
 ### 功能
 ![](https://i.imgur.com/X8t3nVh.jpg)
@@ -101,147 +100,73 @@ python3 app.py
 
 
 ## 實作截圖與講解
-### Prerequisite
-* Python 3.6
-* Pipenv
-* Facebook Page and App
-* HTTPS Server
+### 主選單
+1. 剛加入好友會看到 Greeting Message
+![](https://i.imgur.com/PX8TDCK.jpg)
+---
+2. 接著輸入「主選單」就會進入主選單
+![](https://i.imgur.com/i6TDH2b.jpg)
 
-#### Install Dependency
-```sh
-pip3 install pipenv
+### 關於排球
+1. 點選「關於排球」會看到三個按鈕的選單
+2. 點選「球員與介紹」。會出現一格簡單的提醒，以及一張可點選的站位表。點擊球員則會看到該位置得介紹（共有五個球員位置）（下方例子是點選了MB日向，出現「攔中」的介紹）
+3. 可以選擇「認識其他球員」，會再次出現提醒及站位表。也可以回到主選單。
 
-pipenv --three
+![](https://i.imgur.com/aykBWuG.jpg)
 
-pipenv install
+---
+4. 於「關於排球」的三個按鈕點選「比賽規則」，將出現維基百科上的排球規則。之後藉由快速按鈕或只輸入「主選單」回到主選單
 
-pipenv shell
-```
+![](https://i.imgur.com/evPiRPl.png)
+太長了（截掉中間）
+![](https://i.imgur.com/xnuiEq4.png)
 
-* pygraphviz (For visualizing Finite State Machine)
-    * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
-	* [Note: macOS Install error](https://github.com/pygraphviz/pygraphviz/issues/100)
+---
+
+5. 於「關於排球」的三個按鈕點選「輪轉規則」，將出現輪轉示意圖及規則。之後藉由快速按鈕或只輸入「主選單」回到主選單
+
+![](https://i.imgur.com/c1Qa2d4.jpg)
+
+### 體能與收操
+1. 於主選單點選「體能與收操」會看到兩個按鈕的選單
+2. 「球員體能訓練」包含 「塔巴塔」 以及 「排球體能菜單」
+3. 點選 tabata 將出現 影片連結（文字部分是作者個人推薦的菜單）、以及音樂檔案（會 load 一段時間，但放心會出來的～）
+
+![](https://i.imgur.com/w7QtP6E.jpg)
 
 
-#### Secret Data
-You should generate a `.env` file to set Environment Variables refer to our `.env.sample`.
-`LINE_CHANNEL_SECRET` and `LINE_CHANNEL_ACCESS_TOKEN` **MUST** be set to proper values.
-Otherwise, you might not be able to run your code.
+下方是「排球體能菜單」（包含影片連結，文字部分是摘要）
 
-#### Run Locally
-You can either setup https server or using `ngrok` as a proxy.
 
-#### a. Ngrok installation
-* [ macOS, Windows, Linux](https://ngrok.com/download)
+![](https://i.imgur.com/YMqcamU.jpg)
 
-or you can use Homebrew (MAC)
-```sh
-brew cask install ngrok
-```
+4. 以上兩個功能皆可透過按鈕回到「主選單」
 
-**`ngrok` would be used in the following instruction**
+---
 
-```sh
-ngrok http 8000
-```
+5. 於「體能與收操」點選「收操很重要」
+6. 分別出現「收操小科普」及「開始收操」
+7. 下圖例子點選「收操小科普」，最終也會導向「開始收操」
+8. 最後藉由「開始收操」上的按鈕可以返回主選單
 
-After that, `ngrok` would generate a https URL.
+![](https://i.imgur.com/spUzmjK.jpg)
 
-#### Run the sever
+### 時事收集與媒體
 
-```sh
-python3 app.py
-```
+1. 於主選單點選「時事收集與媒體」會看到兩個按鈕的選單
+2. 點選「排球比賽」會看到三個有名的排球賽事
+3. 任選一個，爬取該賽事 YouTube 官方頻道的最新影片（五個），推播給使用者
+4. 可以選擇爬取其他比賽或回到主選單
 
-#### b. Servo
+![](https://i.imgur.com/dA6MsWV.jpg)
 
-Or You can use [servo](http://serveo.net/) to expose local servers to the internet.
+---
+
+5. 於「時事收集與媒體」點選「排球推薦帳號」，會看到作者推薦的社群帳號。同樣能回到主選單。
+
+![](https://i.imgur.com/vdAzahw.jpg)
+
 
 
 ## Finite State Machine
 ![fsm](./img/fsm.png)
-
-## Usage
-The initial state is set to `user`.
-
-Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
-
-* user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
-
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
-
-## Deploy
-Setting to deploy webhooks on Heroku.
-
-### Heroku CLI installation
-
-* [macOS, Windows](https://devcenter.heroku.com/articles/heroku-cli)
-
-or you can use Homebrew (MAC)
-```sh
-brew tap heroku/brew && brew install heroku
-```
-
-or you can use Snap (Ubuntu 16+)
-```sh
-sudo snap install --classic heroku
-```
-
-### Connect to Heroku
-
-1. Register Heroku: https://signup.heroku.com
-
-2. Create Heroku project from website
-
-3. CLI Login
-
-	`heroku login`
-
-### Upload project to Heroku
-
-1. Add local project to Heroku project
-
-	heroku git:remote -a {HEROKU_APP_NAME}
-
-2. Upload project
-
-	```
-	git add .
-	git commit -m "Add code"
-	git push -f heroku master
-	```
-
-3. Set Environment - Line Messaging API Secret Keys
-
-	```
-	heroku config:set LINE_CHANNEL_SECRET=your_line_channel_secret
-	heroku config:set LINE_CHANNEL_ACCESS_TOKEN=your_line_channel_access_token
-	```
-
-4. Your Project is now running on Heroku!
-
-	url: `{HEROKU_APP_NAME}.herokuapp.com/callback`
-
-	debug command: `heroku logs --tail --app {HEROKU_APP_NAME}`
-
-5. If fail with `pygraphviz` install errors
-
-	run commands below can solve the problems
-	```
-	heroku buildpacks:set heroku/python
-	heroku buildpacks:add --index 1 heroku-community/apt
-	```
-
-	refference: https://hackmd.io/@ccw/B1Xw7E8kN?type=view#Q2-如何在-Heroku-使用-pygraphviz
-
-## Reference
-[Pipenv](https://medium.com/@chihsuan/pipenv-更簡單-更快速的-python-套件管理工具-135a47e504f4) ❤️ [@chihsuan](https://github.com/chihsuan)
-
-[TOC-Project-2019](https://github.com/winonecheng/TOC-Project-2019) ❤️ [@winonecheng](https://github.com/winonecheng)
-
-Flask Architecture ❤️ [@Sirius207](https://github.com/Sirius207)
-
-[Line line-bot-sdk-python](https://github.com/line/line-bot-sdk-python/tree/master/examples/flask-echo)
