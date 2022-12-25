@@ -2,7 +2,7 @@
 
 Final Project for TOC Project 2022
 
-A Line bot based on a finite state machine
+A Line bot based on a finite state machine (FSM)
 
 ## Setup
 
