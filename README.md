@@ -1,10 +1,33 @@
 # Little Haikyuu 小排球
 
-Final Project for TOC Project 2022
+>Final Project for TOC Project 2022 
+>
+>Finish on December 25th, 2022
+>
+>A Line bot based on a finite state machine (FSM)
 
-A Line bot based on a finite state machine (FSM)
+## 設計主旨
+排球運動一直以來都非常受歡迎。在學校與企業中都不乏有投入排球的人。而排球訓練，除了日常練習外，其實也有諸多需要注意的地方。
 
-## 構想
+例如：如何正確收操、體能菜單怎麼排、系隊吹裁忘記規則、想關注排球時事等等
+
+以上都是一些較瑣碎的事情，需要個別查找實在過於麻煩。因此設計了一個 LineBot，提供一個能快速得到以上資訊的環境。
+
+（其實排球訓練以及訓練外的需求因人而異，因此本作品可能有強烈的個人色彩。是由此 LineBot 設計者本人出發而展開的設計）
+
+## 介紹
+### 基本資訊
+![](https://i.imgur.com/saELsZO.png)
+![](https://i.imgur.com/IaW2JNx.png)
+
+名稱：小排球（英文：Little Haikyuu）
+麻煩掃 QRCode 加入好友呦～
+
+:::warning
+由於本 LineBot 使用 Selenium 進行爬取 YouTube 的作業，在部署上較為困難。加上 Heroku 現在需要付費等等原因⋯⋯
+
+本次實作將在本地操作。
+:::
 
 
 ### Prerequisite
