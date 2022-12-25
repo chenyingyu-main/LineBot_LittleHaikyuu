@@ -1112,3 +1112,351 @@ about_volley = {
     }
   }
 }
+
+game = {
+  "type": "bubble",
+  "body": {
+    "type": "box",
+    "layout": "vertical",
+    "contents": [
+      {
+        "type": "text",
+        "text": "Games on YouTube",
+        "weight": "bold",
+        "color": "#1DB446",
+        "size": "sm"
+      },
+      {
+        "type": "text",
+        "text": "排球比賽",
+        "weight": "bold",
+        "size": "xxl",
+        "margin": "md"
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "text",
+        "text": "請點選下方頻道，搜索最新比賽影片",
+        "margin": "xl",
+        "size": "sm"
+      },
+      {
+        "type": "text",
+        "text": "頻道爬取會需要一段時間，",
+        "size": "sm",
+        "margin": "xl"
+      },
+      {
+        "type": "text",
+        "text": "請耐心等候～\U0000263A",
+        "size": "sm"
+      },
+      {
+        "type": "separator",
+        "margin": "xxl"
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "Volleyball World",
+          "text": "Volleyball World"
+        },
+        "color": "#DD881E",
+        "style": "primary",
+        "offsetTop": "sm",
+        "offsetBottom": "sm"
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "V.LEAGUE",
+          "text": "V.LEAGUE"
+        },
+        "offsetTop": "md",
+        "offsetBottom": "sm",
+        "color": "#DD881E",
+        "style": "primary"
+      },
+      {
+        "type": "button",
+        "action": {
+          "type": "message",
+          "label": "HOP Sports",
+          "text": "HOP Sports"
+        },
+        "offsetTop": "lg",
+        "color": "#DD881E",
+        "style": "primary"
+      }
+    ]
+  },
+  "styles": {
+    "footer": {
+      "separator": True
+    }
+  }
+}
+
+media = {
+  "type": "carousel",
+  "contents": [
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "image",
+                "url": "https://pbs.twimg.com/media/FgtN_gjagAEhk6h?format=jpg&name=large",
+                "size": "5xl",
+                "aspectMode": "cover",
+                "aspectRatio": "150:196",
+                "gravity": "center",
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "https://pbs.twimg.com/media/FkFmzqmaMAEnrvh?format=jpg&name=medium",
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "150:98",
+                    "gravity": "center"
+                  },
+                  {
+                    "type": "image",
+                    "url": "https://pbs.twimg.com/media/FgAN4O2VUAIuiDc?format=jpg&name=medium",
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "150:98",
+                    "gravity": "center"
+                  }
+                ],
+                "flex": 1
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "https://pbs.twimg.com/profile_images/893386460216217600/HgpH-A6e_400x400.jpg",
+                    "aspectMode": "cover",
+                    "size": "full"
+                  }
+                ],
+                "cornerRadius": "100px",
+                "width": "72px",
+                "height": "72px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "contents": [
+                      {
+                        "type": "span",
+                        "text": "ハイキュー!!.com",
+                        "weight": "bold",
+                        "color": "#000000"
+                      },
+                      {
+                        "type": "span",
+                        "text": "     "
+                      },
+                      {
+                        "type": "span",
+                        "text": "@haikyu_com ",
+                        "color": "#6c6c6c"
+                      }
+                    ],
+                    "size": "sm",
+                    "wrap": True
+                  },
+                  {
+                    "type": "text",
+                    "text": "週刊少年ジャンプ連載『ハイキュー!!』の公式アカウントです。",
+                    "size": "xxs",
+                    "contents": [
+                      {
+                        "type": "span",
+                        "text": "週刊少年ジャンプ連載『ハイキュー!!』の公式アカウントです。",
+                        "color": "#555555"
+                      }
+                    ],
+                    "wrap": True,
+                    "margin": "sm"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "button",
+                        "action": {
+                          "type": "uri",
+                          "label": "Social Media",
+                          "uri": "https://twitter.com/haikyu_com"
+                        }
+                      }
+                    ],
+                    "spacing": "sm",
+                    "margin": "md"
+                  }
+                ]
+              }
+            ],
+            "spacing": "xl",
+            "paddingAll": "20px"
+          }
+        ],
+        "paddingAll": "0px"
+      }
+    },
+    {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "image",
+                "url": "https://i.pinimg.com/originals/ba/56/03/ba560340699a691b975e1b5722031b9a.jpg",
+                "size": "5xl",
+                "aspectMode": "cover",
+                "aspectRatio": "150:196",
+                "gravity": "center",
+                "flex": 1
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "https://images.volleyballworld.com/image/private/t_editorial_landscape_12_desktop/fivb-prd/ba80qng5x0z7cc0ypbjc.jpg",
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "150:98",
+                    "gravity": "center"
+                  },
+                  {
+                    "type": "image",
+                    "url": "https://images.volleyballworld.com/image/private/t_q-best/fivb-prd/mg99hru3gqmokizzkbm7.jpg",
+                    "size": "full",
+                    "aspectMode": "cover",
+                    "aspectRatio": "150:98",
+                    "gravity": "center"
+                  }
+                ],
+                "flex": 1
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "contents": [
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "image",
+                    "url": "https://shin-notion.com/wp-content/uploads/2022/08/takahashi-ran-arm4.jpg",
+                    "aspectMode": "cover",
+                    "size": "full"
+                  }
+                ],
+                "cornerRadius": "100px",
+                "width": "72px",
+                "height": "72px"
+              },
+              {
+                "type": "box",
+                "layout": "vertical",
+                "contents": [
+                  {
+                    "type": "text",
+                    "contents": [
+                      {
+                        "type": "span",
+                        "text": "ran.volleyball0902",
+                        "weight": "bold",
+                        "color": "#000000"
+                      },
+                      {
+                        "type": "span",
+                        "text": "     "
+                      }
+                    ],
+                    "size": "sm",
+                    "wrap": True
+                  },
+                  {
+                    "type": "text",
+                    "text": "週刊少年ジャンプ連載『ハイキュー!!』の公式アカウントです。",
+                    "size": "xxs",
+                    "contents": [
+                      {
+                        "type": "span",
+                        "text": "髙橋　藍　(Takahashi Ran) 運動員 2001.09.02 (21) #volleyballplayer 『勇気と信念が　世界を変える』",
+                        "color": "#555555"
+                      }
+                    ],
+                    "wrap": True,
+                    "margin": "sm"
+                  },
+                  {
+                    "type": "box",
+                    "layout": "horizontal",
+                    "contents": [
+                      {
+                        "type": "button",
+                        "action": {
+                          "type": "uri",
+                          "label": "Social Media",
+                          "uri": "https://www.instagram.com/ran.volleyball0902/"
+                        }
+                      }
+                    ],
+                    "spacing": "sm",
+                    "margin": "md"
+                  }
+                ]
+              }
+            ],
+            "spacing": "xl",
+            "paddingAll": "20px"
+          }
+        ],
+        "paddingAll": "0px"
+      }
+    }
+  ]
+}

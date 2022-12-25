@@ -17,7 +17,7 @@ machine = TocMachine(
     states=["user", "menu",
         "about_volley", "position", "ws", "mb", "op", "s", "l", "rules", "rotation",
         "training_and_cooldown", "physical_training", "cool_down", "tabata", "training_list", "intro_cool", "start_cool",
-        "news_and_media"
+        "news_and_media", "volleyball_game", "volleyball_world", "vleague", "hop", "media"
     ],
     transitions=[
         # from user to menu
@@ -127,7 +127,42 @@ machine = TocMachine(
             "trigger": "advance", "source": "start_cool", "dest": "menu", "conditions": "is_going_to_menu",
         },
         # (體能與收操) training and cooldown
-
+        {
+            "trigger": "advance", "source": "news_and_media", "dest": "volleyball_game", "conditions": "is_going_to_volleyball_game",
+        },
+        {
+            "trigger": "advance", "source": "volleyball_game", "dest": "volleyball_world", "conditions": "is_going_to_volleyball_world",
+        },
+        {
+            "trigger": "advance", "source": "volleyball_world", "dest": "menu", "conditions": "is_going_to_menu",
+        },
+        {
+            "trigger": "advance", "source": "volleyball_world", "dest": "volleyball_game", "conditions": "is_going_to_volleyball_game",
+        },
+        {
+            "trigger": "advance", "source": "volleyball_game", "dest": "vleague", "conditions": "is_going_to_vleague",
+        },
+        {
+            "trigger": "advance", "source": "vleague", "dest": "menu", "conditions": "is_going_to_menu",
+        },
+        {
+            "trigger": "advance", "source": "vleague", "dest": "volleyball_game", "conditions": "is_going_to_volleyball_game",
+        },
+        {
+            "trigger": "advance", "source": "volleyball_game", "dest": "hop", "conditions": "is_going_to_hop",
+        },
+        {
+            "trigger": "advance", "source": "hop", "dest": "menu", "conditions": "is_going_to_menu",
+        },
+        {
+            "trigger": "advance", "source": "hop", "dest": "volleyball_game", "conditions": "is_going_to_volleyball_game",
+        },
+        {
+            "trigger": "advance", "source": "news_and_media", "dest": "media", "conditions": "is_going_to_media",
+        },
+        {
+            "trigger": "advance", "source": "media", "dest": "menu", "conditions": "is_going_to_menu",
+        },
         # go_back
         {
             "trigger": "go_back", "source": ["training_and_cooldown"], "dest": "menu"

@@ -23,6 +23,7 @@ werkzeug = "*"
 graphviz = "*"
 beautifulsoup4 = "*"
 lxml = "*"
+selenium = "*"
 
 [dev-packages]
 

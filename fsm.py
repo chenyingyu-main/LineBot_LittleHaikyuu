@@ -10,7 +10,8 @@ from linebot.models import *
 from utils import send_text_message
 import message_template.message_template as message_template
 import message_template.player_intro as player_intro
-import web_scraper.scrape_wiki_soup as soup
+import web_crawler.wiki_crawler_soup as soup
+import web_crawler.yt_crawler_selenium as sele
 
 channel_secret = os.getenv("LINE_CHANNEL_SECRET", None)
 channel_access_token = os.getenv("LINE_CHANNEL_ACCESS_TOKEN", None)
@@ -91,6 +92,26 @@ class TocMachine(GraphMachine):
     def is_going_to_rotation(self, event):
         text = event.message.text
         return text.lower() == "輪轉規則"
+
+    def is_going_to_volleyball_game(self, event):
+        text = event.message.text
+        return text.lower() == "排球比賽"
+
+    def is_going_to_volleyball_world(self, event):
+        text = event.message.text
+        return text == "Volleyball World"
+
+    def is_going_to_vleague(self, event):
+        text = event.message.text
+        return text == "V.LEAGUE"
+
+    def is_going_to_hop(self, event):
+        text = event.message.text
+        return text == "HOP Sports"
+    
+    def is_going_to_media(self, event):
+        text = event.message.text
+        return text == "排球推薦帳號"
 
     # on state
     def on_enter_menu(self, event):
@@ -317,7 +338,8 @@ class TocMachine(GraphMachine):
         line_bot_api.reply_message(reply_token, sendmessage)
 
     def on_enter_rotation(self, event):
-        # sad, i cannot scrape this website :(
+        # sad, i cannot scrape this website by beautifulsoup :(
+        # and it will take too long to use selenium...
         # i think i can only copy and paste
         # url = 'http://area.hcjh.tn.edu.tw/health/排球教學網站-資訊教學媒體競賽/1.htm'
         print("i am entering rotation 輪轉規則")
@@ -338,3 +360,137 @@ class TocMachine(GraphMachine):
         messagesend = [image_message, TextSendMessage(message), quick_message]
         line_bot_api = LineBotApi(channel_access_token)
         line_bot_api.reply_message(reply_token, messagesend)
+
+    def on_enter_volleyball_game(self, event):
+        print("i am entering volleyball game 排球比賽")
+        print("I'm entering setter")  
+        reply_token = event.reply_token
+        message = message_template.game
+        message_to_reply = FlexSendMessage("S", message)
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_to_reply)
+        
+
+    def on_enter_volleyball_world(self, event):
+        print("i am entering volleyball word")
+        reply_token = event.reply_token
+
+        keyword = 'volleyballworld'
+        video_info = sele.get_youtube_video_links(keyword, 5)
+        video_link = video_info[0]
+        image_link = video_info[1]
+
+        print(video_link)
+        print(image_link)
+
+        col = []
+        for i in range(5):
+            c = ImageCarouselColumn(
+                image_url = image_link[i],
+                action = URITemplateAction(
+                    label = '點我觀看影片',
+                    uri = video_link[i]
+                )
+            )
+            col.append(c)
+
+        line_bot_api = LineBotApi(channel_access_token)
+        carousel_message = TemplateSendMessage(
+            alt_text = 'Carousel template',
+            template = ImageCarouselTemplate(columns = col)
+        )
+
+        quick_message = TextSendMessage(text="以上影片爬取自 " + keyword + "官方 YouTube ，希望對使用者有幫助 \U0001F440\n\n 現在可以輸入『主選單』返回主選單或者『排球比賽』觀看其他賽事 \n\n\U00002705 也可以直接使用快捷按鈕", 
+                                        quick_reply=QuickReply(items=[
+                                            QuickReplyButton(action=MessageAction(label="主選單", text="主選單")),
+                                            QuickReplyButton(action=MessageAction(label="排球比賽", text="排球比賽"))
+                                        ]))
+        message_to_send = [carousel_message, quick_message]
+        line_bot_api.reply_message(reply_token, message_to_send)
+
+    def on_enter_vleague(self, event):
+        print("i am entering V 聯盟")
+        reply_token = event.reply_token
+
+        keyword = 'VLEAGUEOfficialChannel'
+        video_info = sele.get_youtube_video_links(keyword, 5)
+        video_link = video_info[0]
+        image_link = video_info[1]
+
+        print(video_link)
+        print(image_link)
+
+        col = []
+        for i in range(5):
+            c = ImageCarouselColumn(
+                image_url = image_link[i],
+                action = URITemplateAction(
+                    label = '點我觀看影片',
+                    uri = video_link[i]
+                )
+            )
+            col.append(c)
+
+        line_bot_api = LineBotApi(channel_access_token)
+        carousel_message = TemplateSendMessage(
+            alt_text = 'Carousel template',
+            template = ImageCarouselTemplate(columns = col)
+        )
+
+        quick_message = TextSendMessage(text="以上影片爬取自 " + keyword + "官方 YouTube ，希望對使用者有幫助 \U0001F440\n\n 現在可以輸入『主選單』返回主選單或者『排球比賽』觀看其他賽事 \n\n\U00002705 也可以直接使用快捷按鈕", 
+                                        quick_reply=QuickReply(items=[
+                                            QuickReplyButton(action=MessageAction(label="主選單", text="主選單")),
+                                            QuickReplyButton(action=MessageAction(label="排球比賽", text="排球比賽"))
+                                        ]))
+        message_to_send = [carousel_message, quick_message]
+        line_bot_api.reply_message(reply_token, message_to_send)
+
+    def on_enter_hop(self, event):
+        print("i am entering HOP")
+        reply_token = event.reply_token
+
+        keyword = 'HOPSports'
+        video_info = sele.get_youtube_video_links(keyword, 5)
+        video_link = video_info[0]
+        image_link = video_info[1]
+
+        print(video_link)
+        print(image_link)
+
+        col = []
+        for i in range(5):
+            c = ImageCarouselColumn(
+                image_url = image_link[i],
+                action = URITemplateAction(
+                    label = '點我觀看影片',
+                    uri = video_link[i]
+                )
+            )
+            col.append(c)
+
+        line_bot_api = LineBotApi(channel_access_token)
+        carousel_message = TemplateSendMessage(
+            alt_text = 'Carousel template',
+            template = ImageCarouselTemplate(columns = col)
+        )
+
+        quick_message = TextSendMessage(text="以上影片爬取自 " + keyword + "官方 YouTube ，希望對使用者有幫助 \U0001F440\n\n 現在可以輸入『主選單』返回主選單或者『排球比賽』觀看其他賽事 \n\n\U00002705 也可以直接使用快捷按鈕", 
+                                        quick_reply=QuickReply(items=[
+                                            QuickReplyButton(action=MessageAction(label="主選單", text="主選單")),
+                                            QuickReplyButton(action=MessageAction(label="排球比賽", text="排球比賽"))
+                                        ]))
+        message_to_send = [carousel_message, quick_message]
+        line_bot_api.reply_message(reply_token, message_to_send)
+
+    def on_enter_media(self, event):
+        print("i am entering media")
+        reply_token = event.reply_token
+        message = message_template.media
+        message_to_reply = FlexSendMessage("social media", message)
+        quick_message = TextSendMessage(text="以上網址能連接去該社群網站，在此推薦給使用者 \U0000263A\n\n 現在可以輸入『主選單』返回主選單 \n\n\U00002705 也可以直接使用快捷按鈕", 
+                                        quick_reply=QuickReply(items=[
+                                            QuickReplyButton(action=MessageAction(label="主選單", text="主選單")),
+                                        ]))
+        message_to_send = [message_to_reply, quick_message]
+        line_bot_api = LineBotApi(channel_access_token)
+        line_bot_api.reply_message(reply_token, message_to_send)
